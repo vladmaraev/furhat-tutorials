@@ -12,6 +12,6 @@ There are two examples in this repo:
 ## How to use
 
 1. Enable the audio feed on your robot (Settings/External_Feeds in the web interface)
-2. Set the IP of your robot or machine in the main.kt file (your device need to be on the same network)
-3. Comment out / uncomment the parts that you want to try in the main.kt file
-4. Enjoy :D
+2. Comment out / uncomment the parts that you want to try in the main.kt file
+3. Run: `./gradlew run`
+4. Press any key to stop.

@@ -28,5 +28,9 @@ compileTestKotlin {
 }
 
 application {
-    mainClassName = 'MainKt'
+    mainClassName = 'furhatos.demo.MainKt'
+}
+
+run {
+    standardInput = System.in
 }
