@@ -56,13 +56,18 @@ print('listening to {}, entering loop'.format(url))
 
 img = None
 
-if args.help:
-    print('furhattube - display furhat camerafeed with overlayed annotations')
-    print('             (face bounding boxes, user id:s, emotion estimates)')
-    print('   usage: 1) make sure camera feed is')
+# if args.help:
+#     print('furhattube - display furhat camerafeed with overlayed annotations')
+#     print('             (face bounding boxes, user id:s, emotion estimates)')
+#     print('   usage: 1) make sure camera feed is')
 
 #if args.output_video:
 #    ov = cv2.VideoWriter(args.output_video,cv2.VideoWriter_fourcc(*'MJPG'),10,(480, 640))
+
+# https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out_bare = cv2.VideoWriter('output-bare.mp4', fourcc, 24,(640, 480))
+out = cv2.VideoWriter('output.mp4', fourcc, 24,(640, 480))
 
 while True:
     
@@ -75,20 +80,24 @@ while True:
         img = cv2.imdecode(buf,flags=1)
         #if 'ov' in globals():
         #    ov.write(img)
+        out_bare.write(img)
+
     # if not JPEG, let's assume JSON
-    else:         
+    else:
         annot = json.loads(string.decode())
         print(annot)
         if isinstance(img,np.ndarray):
             annotate(img,annot)
+            out.write(img)
             cv2.imshow('FurhatTube',img)
             k = cv2.waitKey(1)
-
             if k%256 == 27: # When pressing esc the program stops.
             # ESC pressed
                 print("Escape hit, closing...")
                 break
 
+
+
 #if 'ov' in globals():
-#    print('releaseing video') 
-#    ov.release()
+print('releasing video') 
+out.release()
